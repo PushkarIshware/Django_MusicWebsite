@@ -1,0 +1,40 @@
+<html>
+<title></title>
+<head>
+
+</head>
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'App_1/style.css' %}" />
+
+<img src="{{ album.album_logo }}" height="200" width="200">
+
+<h2>{{ album.album_title }}</h2>
+<h3>{{ album.artist }}</h3>
+<h4>{{ album.genre }}</h4>
+
+<!--<ul>-->
+    <!--{% for song in album.song_set.all %}-->
+    <!--<li>{{ song.song_title }}.{{ song.file_type }}</li>-->
+    <!--{% endfor %}-->
+<!--</ul>-->
+
+{% if error %}
+    <p><strong>{{ error }}</strong></p>
+{% endif %}
+
+<form action="{% url 'App_1:favorite' album.id %}" method="post">
+    {% csrf_token %}
+    {% for song in album.song_set.all %}
+        <input type="radio" id="song{{ forloop.counter }}" name="song" value="{{song.id}}">
+        <label for="song{{ forloop.counter }}">
+            {{ song.song_title }}
+            {% if song.favorite %}
+                <!--  <img src="https://techflourish.com/image/8-bit-heart-clipart/165576.html#gal_post_7560_8-bit-heart-clipart-8.png" height="20" width="20" />-->
+                <img src="https://banner2.kisspng.com/20180409/kpw/kisspng-heart-logo-love-5acb3e26cd7752.4265165315232691588416.jpg" height="20" width="20" />
+            {% endif %}
+        </label><br>
+    {% endfor %}
+    <input type="submit" type="favorite">
+</form>
+</html>

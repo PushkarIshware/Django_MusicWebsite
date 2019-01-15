@@ -1,0 +1,32 @@
+
+{% load staticfiles %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" />
+<link rel="stylesheet"  href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" />
+
+<link rel="stylesheet" type="text/css" href="{% static 'App_1/style.css' %}" />
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{% url 'App_1:index' %}">X Music</a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+{% if all_albums %}
+    <h1>MY ALBUMS</h1>
+    <ul>
+    {% for album in all_albums %}
+    <li><a href="{% url 'App_1:detail' album.id %}">{{ album.album_title }}</a> </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <h1>no albums</h1>
+{% endif %}
+
